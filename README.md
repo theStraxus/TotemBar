@@ -39,16 +39,16 @@ Pressing that macro will recall existing totems and immediately drop your chosen
 ## Screenshots
 
 ### Empty UI (no totems chosen)
-![Empty TotemBar UI](docs/screenshots/empty-ui.png)
+![Empty TotemBar UI](./docs/screenshots/empty-ui.jpg)
 
 ### Selecting totems
-![Dropdown showing totem list](docs/screenshots/totem-dropdown.png)
+![Dropdown showing totem list](./docs/screenshots/totem-dropdown.jpg)
 
 ### UI with chosen totems (icons displayed)
-![UI with selected totems](docs/screenshots/totems-chosen.png)
+![UI with selected totems](./docs/screenshots/totems-chosen.jpg)
 
 ### TotemDrop macro in Macro UI
-![Macro UI with TotemDrop created](docs/screenshots/macro-ui.png)
+![Macro UI with TotemDrop created](./docs/screenshots/macro-ui.jpg)
 
 ---
 
