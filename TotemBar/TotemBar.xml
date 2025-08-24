@@ -1,0 +1,109 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+
+  <Frame name="TotemBarFrame" parent="UIParent" movable="true" enableMouse="true" clampedToScreen="true">
+    <!-- No fixed <Size>; Lua sizes to fit -->
+    <Anchors><Anchor point="CENTER"/></Anchors>
+
+    <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+      <BackgroundInsets><AbsInset left="5" right="5" top="5" bottom="5"/></BackgroundInsets>
+      <TileSize><AbsValue val="16"/></TileSize>
+      <EdgeSize><AbsValue val="16"/></EdgeSize>
+      <Color r="0" g="0" b="0" a="0.4"/>
+    </Backdrop>
+
+    <Scripts>
+      <OnLoad>TotemBar_OnLoad(this)</OnLoad>
+      <!-- Vanilla-safe drag -->
+      <OnMouseDown>
+        if arg1 == "LeftButton" then
+          this.isMoving = 1;
+          this:StartMoving();
+        end
+      </OnMouseDown>
+      <OnMouseUp>
+        if this.isMoving == 1 then
+          this.isMoving = nil;
+          this:StopMovingOrSizing();
+          TotemBar_SavePosition(this);
+        end
+      </OnMouseUp>
+    </Scripts>
+
+    <Frames>
+      <!-- Earth -->
+      <Button name="TotemBar_Earth" parent="TotemBarFrame">
+        <Size><AbsDimension x="36" y="36"/></Size>
+        <Anchors><Anchor point="TOPLEFT"><Offset x="10" y="-10"/></Anchor></Anchors>
+        <NormalTexture file="Interface\Buttons\UI-Quickslot2"/>
+        <Layers>
+          <Layer level="OVERLAY">
+            <Texture name="TotemBar_EarthIcon" setAllPoints="true" hidden="true"/>
+          </Layer>
+          <Layer level="ARTWORK">
+            <FontString name="TotemBar_EarthLabel" inherits="GameFontHighlight" justifyH="CENTER" justifyV="MIDDLE">
+              <Anchors><Anchor point="CENTER"/></Anchors>
+              <Text>Earth</Text>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Scripts><OnClick>TotemBar_ShowMenu("EARTH", this)</OnClick></Scripts>
+      </Button>
+
+      <!-- Fire -->
+      <Button name="TotemBar_Fire" parent="TotemBarFrame">
+        <Size><AbsDimension x="36" y="36"/></Size>
+        <Anchors><Anchor point="LEFT" relativeTo="TotemBar_Earth" relativePoint="RIGHT"><Offset x="10" y="0"/></Anchor></Anchors>
+        <NormalTexture file="Interface\Buttons\UI-Quickslot2"/>
+        <Layers>
+          <Layer level="OVERLAY"><Texture name="TotemBar_FireIcon" setAllPoints="true" hidden="true"/></Layer>
+          <Layer level="ARTWORK">
+            <FontString name="TotemBar_FireLabel" inherits="GameFontHighlight" justifyH="CENTER" justifyV="MIDDLE">
+              <Anchors><Anchor point="CENTER"/></Anchors>
+              <Text>Fire</Text>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Scripts><OnClick>TotemBar_ShowMenu("FIRE", this)</OnClick></Scripts>
+      </Button>
+
+      <!-- Water -->
+      <Button name="TotemBar_Water" parent="TotemBarFrame">
+        <Size><AbsDimension x="36" y="36"/></Size>
+        <Anchors><Anchor point="LEFT" relativeTo="TotemBar_Fire" relativePoint="RIGHT"><Offset x="10" y="0"/></Anchor></Anchors>
+        <NormalTexture file="Interface\Buttons\UI-Quickslot2"/>
+        <Layers>
+          <Layer level="OVERLAY"><Texture name="TotemBar_WaterIcon" setAllPoints="true" hidden="true"/></Layer>
+          <Layer level="ARTWORK">
+            <FontString name="TotemBar_WaterLabel" inherits="GameFontHighlight" justifyH="CENTER" justifyV="MIDDLE">
+              <Anchors><Anchor point="CENTER"/></Anchors>
+              <Text>Water</Text>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Scripts><OnClick>TotemBar_ShowMenu("WATER", this)</OnClick></Scripts>
+      </Button>
+
+      <!-- Air -->
+      <Button name="TotemBar_Air" parent="TotemBarFrame">
+        <Size><AbsDimension x="36" y="36"/></Size>
+        <Anchors><Anchor point="LEFT" relativeTo="TotemBar_Water" relativePoint="RIGHT"><Offset x="10" y="0"/></Anchor></Anchors>
+        <NormalTexture file="Interface\Buttons\UI-Quickslot2"/>
+        <Layers>
+          <Layer level="OVERLAY"><Texture name="TotemBar_AirIcon" setAllPoints="true" hidden="true"/></Layer>
+          <Layer level="ARTWORK">
+            <FontString name="TotemBar_AirLabel" inherits="GameFontHighlight" justifyH="CENTER" justifyV="MIDDLE">
+              <Anchors><Anchor point="CENTER"/></Anchors>
+              <Text>Air</Text>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Scripts><OnClick>TotemBar_ShowMenu("AIR", this)</OnClick></Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+
+  <!-- Dropdown template -->
+  <Frame name="TotemBar_DropDown" inherits="UIDropDownMenuTemplate" hidden="true"/>
+</Ui>

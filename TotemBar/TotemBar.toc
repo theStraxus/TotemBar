@@ -1,0 +1,9 @@
+## Interface: 11200
+## Title: TotemBar
+## Notes: 4-button element bar for Shaman totem sets + deploy cast sequence macro
+## Author: Straxus (.straxus on discord)
+## Version: 1.0
+## SavedVariablesPerCharacter: TotemBarDB
+
+TotemBar.lua
+TotemBar.xml
