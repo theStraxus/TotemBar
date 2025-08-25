@@ -11,11 +11,14 @@ local function EnsureDB()
   db.pos        = db.pos        or {}                      -- we persist absolute left/top only
   db.macroName  = db.macroName  or "TotemDrop"
   db.debug      = (db.debug == true)                       -- default OFF
+  -- Safety: if Fire Nova Totem was previously saved, clear it (now unsupported)
+  if db.chosen.FIRE == "Fire Nova Totem" then db.chosen.FIRE = nil end
 end
 
 local TOTEMS = {
   EARTH = { "Strength of Earth Totem","Stoneclaw Totem","Stoneskin Totem","Tremor Totem","Earthbind Totem" },
-  FIRE  = { "Searing Totem","Magma Totem","Fire Nova Totem","Flametongue Totem","Fire Resistance Totem" },
+  -- Removed "Fire Nova Totem" from the FIRE list
+  FIRE  = { "Searing Totem","Magma Totem","Flametongue Totem","Fire Resistance Totem" },
   WATER = { "Healing Stream Totem","Mana Spring Totem","Poison Cleansing Totem","Disease Cleansing Totem","Frost Resistance Totem" },
   AIR   = { "Windfury Totem","Grace of Air Totem","Windwall Totem","Grounding Totem","Nature Resistance Totem","Sentry Totem","Tranquil Air Totem" },
 }
@@ -161,6 +164,12 @@ local function BuildMacroBody()
 
   local function add(slot)
     local pick = db.chosen[slot]
+    -- Safety: skip Fire Nova Totem if somehow present
+    if slot == "FIRE" and pick == "Fire Nova Totem" then
+      pick = nil
+      db.chosen.FIRE = nil
+      Log("Fire Nova Totem is not supported and was removed from your Fire selection.")
+    end
     if pick then
       local learned = PlayerKnows(pick)
       table.insert(lines, "/cast "..(learned or pick))
@@ -248,24 +257,24 @@ function TotemBar_ShowMenu(elementKey, anchor)
   })
 
   for _, baseName in ipairs(TOTEMS[ek]) do
-  -- capture per-iteration copies (Lua 5.0 closure safety)
-  local bn  = baseName
-  local ek2 = ek
+    -- capture per-iteration copies (Lua 5.0 closure safety)
+    local bn  = baseName
+    local ek2 = ek
 
-  local learned = PlayerKnows(bn)
-  if learned then
-    table.insert(menu, {
-      text = learned,
-      func = function()
-        EnsureDB()
-        _G.TotemBarDB.chosen[ek2] = bn
-        if CloseDropDownMenus then CloseDropDownMenus() end
+    local learned = PlayerKnows(bn)
+    if learned then
+      table.insert(menu, {
+        text = learned,
+        func = function()
+          EnsureDB()
+          _G.TotemBarDB.chosen[ek2] = bn
+          if CloseDropDownMenus then CloseDropDownMenus() end
           TotemBar.UpdateElementButton(ek2)
           After(0.05, TotemBar_EnsureOrUpdateMacro)
           -- tostring-guard to avoid concat errors even if something's off
           Log(tostring(ek2).." → "..tostring(PlayerKnows(bn) or bn))
         end
-    })
+      })
     end
   end
 
