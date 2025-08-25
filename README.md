@@ -15,6 +15,16 @@ No need to maintain custom macros by hand — the addon keeps it up-to-date when
 
 ---
 
+## Requirements
+
+TotemBar relies on WoW’s macro API to create and update the **TotemDrop** macro.
+
+- On **Turtle WoW**, you must also install **nampower** (a macro modernization helper) via the **MODS** tab.  
+  Without nampower, TotemBar’s UI will work, but the macro may not update or may fail due to limitations in Turtle’s older macro system.  
+- On private Vanilla 1.12 clients that already have extended macro support, TotemBar should work without extra dependencies.
+
+---
+
 ## Installation
 
 1. Download/clone this repository.
