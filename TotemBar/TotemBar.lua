@@ -18,8 +18,8 @@ end
 local TOTEMS = {
   EARTH = { "Strength of Earth Totem","Stoneclaw Totem","Stoneskin Totem","Tremor Totem","Earthbind Totem" },
   -- Removed "Fire Nova Totem" from the FIRE list
-  FIRE  = { "Searing Totem","Magma Totem","Flametongue Totem","Fire Resistance Totem" },
-  WATER = { "Healing Stream Totem","Mana Spring Totem","Poison Cleansing Totem","Disease Cleansing Totem","Frost Resistance Totem" },
+  FIRE  = { "Searing Totem","Magma Totem","Flametongue Totem","Frost Resistance Totem" },
+  WATER = { "Healing Stream Totem","Mana Spring Totem","Poison Cleansing Totem","Disease Cleansing Totem","Fire Resistance Totem" },
   AIR   = { "Windfury Totem","Grace of Air Totem","Windwall Totem","Grounding Totem","Nature Resistance Totem","Sentry Totem","Tranquil Air Totem" },
 }
 
@@ -347,3 +347,4 @@ function TotemBar_OnLoad(frame)
     end
   end)
 end
+
